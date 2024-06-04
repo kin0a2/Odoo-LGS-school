@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Inherited view of sale.order to add student_name -->
+    <record id="sale_order_inherit" model="ir.ui.view">
+        <field name="name">sale.order.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="student_name"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Tree view of the fees model -->
+    <record id="fees_tree" model="ir.ui.view">
+        <field name="name">school.fees.tree</field>
+        <field name="model">school.fees</field>
+        <field name="arch" type="xml">
+            <tree string="Fees">
+                <field name="name"/>
+                 <field name="student_id"/>
+                 <field name="student_age"/>
+                 <field name="admission_date"/>
+                 <field name="notes"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view of the fees model -->
+    <record id="fees_form" model="ir.ui.view">
+        <field name="name">school.fees.form</field>
+        <field name="model">school.fees</field>
+        <field name="arch" type="xml">
+            <form string="Fees">
+                <sheet>
+                     <div class="oe title">
+                         <h1>
+                             <field name="name"/>
+                         </h1>
+                     </div>
+                    <group>
+                        <group>
+                            <field name="name_seq"/>
+                         </group>
+                         <group>
+                            <field name="student_age"/>
+                          </group>
+                          <group>
+                            <field name="student_id"/>
+                          </group>
+                          <group>
+                            <field name="admission_date"/>
+                          </group>
+                          <group>
+                            <field name="notes"/>
+                          </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!-- Action for the fees model -->
+    <record id="action_fees" model="ir.actions.act_window">
+        <field name="name">Fees</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">school.fees</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new fee entry
+            </p>
+        </field>
+    </record>
+
+
+    <menuitem id="school_root" name="School" web_icon="LGS_School.static/description/OIP_013.jpeg" sequence="0"/>
+    <menuitem id="school_fees" name="Fees" parent="school_root" action="action_fees" sequence="2"/>
+</odoo>
+
+
